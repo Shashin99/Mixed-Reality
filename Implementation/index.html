@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no"
+        />
+        <title>Military Scenario</title>
+        <!-- A-Frame + AR.js -->
+        <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+        <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/2.1.8/aframe/build/aframe-ar.min.js"></script>
+        <style>
+            body {
+                margin: 0;
+                overflow: hidden;
+            }
+            a-scene {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <a-scene
+            embedded
+            arjs="sourceType: webcam;"
+            gesture-handler
+            renderer="colorManagement: true; physicallyCorrectLights: true;"
+        >
+            <!-- Renderer properties for better color & light -->
+            <!-- Lighting -->
+            <a-light type="ambient" intensity="1" color="#FFFFFF"></a-light>
+            <!-- White ambient light -->
+            <a-light
+                type="directional"
+                intensity="0.8"
+                position="0 2 1"
+                color="#FFFFFF"
+            ></a-light>
+            <!-- White directional light -->
+
+            <!-- Assets -->
+            <a-assets>
+                <audio
+                    id="helicopter-sound"
+                    src="assets/sounds/helicopter.mp3"
+                ></audio>
+                <audio
+                    id="soldier-sound"
+                    src="assets/sounds/soldiers.mp3"
+                ></audio>
+                <audio id="brdm-sound" src="assets/sounds/brdm.mp3"></audio>
+                <audio id="tank-sound" src="assets/sounds/tank.mp3"></audio>
+                <img
+                    id="ground-texture"
+                    src="assets/textures/ground_texture.jpg"
+                />
+            </a-assets>
+            <a-marker preset="hiro">
+                <!-- LARGER Terrain Plane with material settings for original color display -->
+                <a-plane
+                    id="ground-plane"
+                    position="0.5 -0.01 4"
+                    rotation="-90 0 0"
+                    width="30"
+                    height="30"
+                    material="src: #ground-texture; repeat: 30 30; roughness: 1; metalness: 0;"
+                >
+                </a-plane>
+                <!-- Helicopter -->
+                <a-entity
+                    id="helicopter"
+                    gltf-model="assets/models/helicopter.glb"
+                    gesture-handler
+                    scale="0.002 0.002 0.002"
+                    rotation="0 90 0"
+                    position="-0.5 2.5 0"
+                    animation="property: rotation; to: 0 450 0; loop: true; dur: 8000; easing: linear"
+                    sound="src: #helicopter-sound; autoplay: true; loop: true; positional: true; volume: 0.9"
+                ></a-entity>
+                <!-- Soldier [1] -->
+                <a-entity
+                    gltf-model="assets/models/army_man.glb"
+                    gesture-handler
+                    scale="0.15 0.15 0.15"
+                    rotation="0 90 0"
+                    position="-0.5 1 0"
+                    animation__rotate="property: rotation; to: 0 450 0; dur: 6000; loop: true; easing: linear"
+                    animation__move="property: position; to: -0.5 -3 0; dur: 3000; dir: alternate; loop: true; easing: linear"
+                    sound="src: #soldier-sound; autoplay: true; loop: true; positional: true; volume: 0.9"
+                ></a-entity>
+                <!-- Soldier [2] -->
+                <a-entity
+                    gltf-model="assets/models/army_man.glb"
+                    gesture-handler
+                    scale="0.15 0.15 0.15"
+                    rotation="0 90 0"
+                    position="-0.5 1 0"
+                    animation__rotate="property: rotation; to: 0 450 0; dur: 6000; loop: true; easing: linear"
+                    animation__move="property: position; to: -0.5 -3 2; dur: 3000; dir: alternate; loop: true; easing: linear"
+                ></a-entity>
+                <!-- Soldier [3] -->
+                <a-entity
+                    gltf-model="assets/models/army_man.glb"
+                    gesture-handler
+                    scale="0.15 0.15 0.15"
+                    rotation="0 90 0"
+                    position="-0.5 1 0"
+                    animation__rotate="property: rotation; to: 0 450 0; dur: 6000; loop: true; easing: linear"
+                    animation__move="property: position; to: -0.5 -3 4; dur: 3000; dir: alternate; loop: true; easing: linear"
+                    sound="src: #soldier-sound; autoplay: true; loop: true; positional: true; volume: 0.9"
+                ></a-entity>
+                <!-- Armored Jeep -->
+                <a-entity
+                    gltf-model="assets/models/armored_jeep.glb"
+                    gesture-handler
+                    scale="0.006 0.006 0.006"
+                    rotation="0 270 0"
+                    position="0 0 2"
+                    animation="property: position; to: 0 0 6; dur: 7000; dir: alternate; loop: true; easing: linear"
+                ></a-entity>
+                <!-- Tank [1] -->
+                <a-entity
+                    gltf-model="assets/models/tank.glb"
+                    gesture-handler
+                    scale="0.2 0.2 0.2"
+                    rotation="0 90 0"
+                    position="1 0 1.5"
+                    animation="property: position; to: 1 0 6.5; dur: 16000; dir: alternate; loop: true; easing: linear"
+                ></a-entity>
+                <!-- Tank [2] -->
+                <a-entity
+                    gltf-model="assets/models/tank.glb"
+                    gesture-handler
+                    scale="0.2 0.2 0.2"
+                    rotation="0 90 0"
+                    position="-1 0 1.5"
+                    animation="property: position; to: -1 0 6.5; dur: 16000; dir: alternate; loop: true; easing: linear"
+                    sound="src: #tank-sound; autoplay: true; loop: true; positional: true; volume: 0.9"
+                ></a-entity>
+                <!-- BRDM -->
+                <a-entity
+                    gltf-model="assets/models/brdm.glb"
+                    gesture-handler
+                    scale="0.15 0.15 0.15"
+                    rotation="0 180 0"
+                    position="0 0 5"
+                    animation="property: position; to: 0 0 8; dur: 17000; dir: alternate; loop: true; easing: linear"
+                    sound="src: #brdm-sound; autoplay: true; loop: true; positional: true; volume: 0.9"
+                ></a-entity>
+                <!-- Environmental Elements -->
+                <!-- Trees -->
+                <a-entity
+                    gltf-model="assets/models/tree.glb"
+                    scale="0.5 0.5 0.5"
+                    position="2 0 3"
+                ></a-entity>
+                <a-entity
+                    gltf-model="assets/models/tree.glb"
+                    scale="0.5 0.5 0.5"
+                    position="4 0 6"
+                ></a-entity>
+                <a-entity
+                    gltf-model="assets/models/tree.glb"
+                    scale="0.5 0.5 0.5"
+                    position="1 0 8"
+                ></a-entity>
+                <a-entity
+                    gltf-model="assets/models/tree.glb"
+                    scale="0.5 0.5 0.5"
+                    position="-3 0 5"
+                ></a-entity>
+                <!-- Rocks -->
+                <a-entity
+                    gltf-model="assets/models/rock.glb"
+                    scale="0.3 0.3 0.3"
+                    position="5 0 5"
+                ></a-entity>
+                <a-entity
+                    gltf-model="assets/models/rock.glb"
+                    scale="0.3 0.3 0.3"
+                    position="6 0 2"
+                ></a-entity>
+                <a-entity
+                    gltf-model="assets/models/rock.glb"
+                    scale="0.3 0.3 0.3"
+                    position="3 0 7"
+                ></a-entity>
+                <a-entity
+                    gltf-model="assets/models/rock.glb"
+                    scale="0.3 0.3 0.3"
+                    position="-2 0 4"
+                ></a-entity>
+            </a-marker>
+            <a-entity camera></a-entity>
+        </a-scene>
+    </body>
+</html>
