@@ -92,10 +92,9 @@ The chosen AR scenery is a battlefield designed for immersive experience with th
 ```
 /Mixed-Reality
 │
-├── models/          # GLB models for all 3D assets
 ├── assets/          # Textures, sound effects
+   ├── models/          # GLB models for all 3D assets
 ├── index.html       # Main HTML file with A-Frame scene
-└── scripts/         # Custom JavaScript if applicable
 ```
 
 To run the app:
